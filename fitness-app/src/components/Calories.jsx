@@ -14,18 +14,38 @@ function Calories({ weight, height, age, sex, activityLevel }) {
   
   
   
+
+  switch(activityLevel){
+    case 'sedentary':
+      activityMultiplier = 1.2;
+      break;
+    case 'lightlyActive':
+      activityMultiplier = 1.375;
+      break;
+    case 'moderatelyActive':
+      activityMultiplier = 1.55;
+      break;
+    case  'veryActive':
+      activityMultiplier = 1.725;
+      break;
+    default:
+      activityMultiplier = 1.9   
+      break;
+  };
+
+
   
-  if (activityLevel === 'sedentary') {
-    activityMultiplier = 1.2
-  } else if (activityLevel === 'lightlActive') {
-    activityMultiplier = 1.375
-  } else if (activityLevel === 'moderatelyActive') {
-    activityMultiplier = 1.55
-  } else if (activityLevel === 'veryActive') {
-    activityMultiplier = 1.725
-  } else {
-    activityMultiplier = 1.9 
-  }
+  // if (activityLevel === 'sedentary') {
+  //   activityMultiplier = 1.2
+  // } else if (activityLevel === 'lightlActive') {
+  //   activityMultiplier = 1.375
+  // } else if (activityLevel === 'moderatelyActive') {
+  //   activityMultiplier = 1.55
+  // } else if (activityLevel === 'veryActive') {
+  //   activityMultiplier = 1.725
+  // } else {
+  //   activityMultiplier = 1.9 
+  // }
   
   
   if (sex === 'male') {
