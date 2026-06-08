@@ -8,9 +8,13 @@ import Login from './components/Login'
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const savedStatus = sessionStorage.getItem('isLoggedIn');
+    return savedStatus === 'true'
+  });
 
   const handleLogin = () => {
+    sessionStorage.setItem('isLoggedIn', 'true');
     setIsLoggedIn(true);
   };
 
