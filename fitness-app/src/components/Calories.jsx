@@ -1,7 +1,32 @@
-function Calories({ weight, height, age, sex, activityLevel }) {
+import { useAuth } from '../context/AuthContext';
+
+function Calories() {
+
+  const { user } = useAuth();
+  const { weight, height, birthdate, sex, activityLevel } = user;
   
   let BMR;
   let activityMultiplier;
+
+  let currentMonth = new Date().getMonth();
+  let currentDate = new Date().getDate();
+  let birthMonth = new Date(birthdate).getMonth();
+  let birthDay = new Date(birthdate).getDate();
+  let currentYear = new Date().getFullYear();
+  let birthYear = new Date(birthdate).getFullYear();
+
+  let age = currentYear - birthYear;
+
+
+  
+  if (
+    currentMonth < birthMonth ||
+    (currentMonth === birthMonth && currentDate < birthDay)
+  ) {
+    age = age - 1;
+  };
+
+  
 
   
   
@@ -34,19 +59,6 @@ function Calories({ weight, height, age, sex, activityLevel }) {
   };
 
 
-  
-  // if (activityLevel === 'sedentary') {
-  //   activityMultiplier = 1.2
-  // } else if (activityLevel === 'lightlActive') {
-  //   activityMultiplier = 1.375
-  // } else if (activityLevel === 'moderatelyActive') {
-  //   activityMultiplier = 1.55
-  // } else if (activityLevel === 'veryActive') {
-  //   activityMultiplier = 1.725
-  // } else {
-  //   activityMultiplier = 1.9 
-  // }
-  
   
   if (sex === 'male') {
     BMR = BMRForMale

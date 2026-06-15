@@ -1,8 +1,10 @@
+import { useAuth} from '../context/AuthContext';
 import BMI from './BMI';
 import Calories from './Calories';
 
-function UserInfo({ user }) {
-  const { fullname, weight, height, activityLevel, birthdate, sex } = user;
+function UserInfo() {
+  const { user } = useAuth();
+  const { fullname, weight, height, activityLevel, birthdate } = user;
 
   let currentMonth = new Date().getMonth();
   let currentDate = new Date().getDate();
@@ -18,7 +20,7 @@ function UserInfo({ user }) {
     (currentMonth === birthMonth && currentDate < birthDay)
   ) {
     age = age - 1;
-  }
+  };
 
    if (activityLevel === 'lightlActive') {
       activityLabel = 'Light Active'
@@ -37,14 +39,8 @@ function UserInfo({ user }) {
       <p>Height: {height}</p>
       <p>Age: {age}</p>
       <p>Activity Level:{activityLabel}</p>
-      <BMI weight={weight} height={height} />
-      <Calories
-        weight={weight}
-        height={height}
-        age={age}
-        sex={sex}
-        activityLevel={activityLevel}
-      />
+      <BMI  />
+      <Calories />
     </>
   );
 }

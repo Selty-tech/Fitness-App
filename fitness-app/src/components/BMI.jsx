@@ -1,4 +1,9 @@
-function BMI({ height, weight }) {
+import { useAuth } from '../context/AuthContext';
+
+function BMI() {
+  const { user } = useAuth();
+  const { weight, height } = user;
+
   const heightInMeters = height / 100;
   const bmi = weight / (heightInMeters * heightInMeters);
 

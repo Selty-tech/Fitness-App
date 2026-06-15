@@ -1,7 +1,9 @@
+import { useAuth } from '../context/AuthContext'
 import { useState } from 'react';
-import user from '../data/user';
 
-function Login({ onLogin }) {
+
+function Login() {
+  const { user, handleLogin } = useAuth();
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
@@ -17,7 +19,7 @@ function Login({ onLogin }) {
 
   const buttonClickHandler = () => {
     if (usernameInput === user.username && passwordInput === user.password) {
-      onLogin();
+      handleLogin();
     } else {
       setErrorMessage(' invalid username or password');
     }
