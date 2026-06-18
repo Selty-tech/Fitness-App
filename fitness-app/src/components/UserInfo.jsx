@@ -3,24 +3,9 @@ import BMI from './BMI';
 import Calories from './Calories';
 
 function UserInfo() {
-  const { user } = useAuth();
-  const { fullname, weight, height, activityLevel, birthdate } = user;
+  const { user: { fullname, weight, height, activityLevel} , age  } = useAuth();
 
-  let currentMonth = new Date().getMonth();
-  let currentDate = new Date().getDate();
-  let birthMonth = new Date(birthdate).getMonth();
-  let birthDay = new Date(birthdate).getDate();
-  let currentYear = new Date().getFullYear();
-  let birthYear = new Date(birthdate).getFullYear();
-  let age = currentYear - birthYear;
   let activityLabel;
-
-  if (
-    currentMonth < birthMonth ||
-    (currentMonth === birthMonth && currentDate < birthDay)
-  ) {
-    age = age - 1;
-  };
 
    if (activityLevel === 'lightlActive') {
       activityLabel = 'Light Active'
