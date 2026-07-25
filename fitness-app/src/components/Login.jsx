@@ -3,11 +3,10 @@ import { useState } from 'react';
 
 
 function Login() {
-  const { user, handleLogin } = useAuth();
+  const { handleLogin, error } = useAuth();
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsernameInput(event.target.value);
@@ -18,11 +17,7 @@ function Login() {
   };
 
   const buttonClickHandler = () => {
-    if (usernameInput === user.username && passwordInput === user.password) {
-      handleLogin();
-    } else {
-      setErrorMessage(' invalid username or password');
-    }
+    handleLogin(usernameInput, passwordInput)
   };
   return (
     <>
@@ -44,7 +39,7 @@ function Login() {
       />
 
       <button onClick={buttonClickHandler}>Login</button>
-      {errorMessage ? <p>{errorMessage}</p> : null}
+      {error && <p>{error}</p>}
     </>
   );
 }
