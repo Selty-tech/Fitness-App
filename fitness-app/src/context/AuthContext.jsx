@@ -17,7 +17,7 @@ function AuthProvider({ children }) {
 const handleLogin = async (username, password) => {
   try{
     const response = await axios.post(
-      'https://dummyjson.com/auth/login',
+      'http://localhost:3000/auth/login',
       {
         username,
         password,
