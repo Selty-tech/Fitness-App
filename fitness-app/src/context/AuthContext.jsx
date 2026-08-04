@@ -33,6 +33,24 @@ const handleLogin = async (username, password) => {
   }
 };
 
+  let age = null;
+
+  if (user) {
+    const today = new Date();
+    const birthDate = new Date(user.birthdate);
+
+    age = today.getFullYear() - birthDate.getFullYear();
+    
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDifference < 0 || 
+       (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age = age -1;
+    }
+  }
+
 
 
   const value = {
@@ -40,6 +58,7 @@ const handleLogin = async (username, password) => {
     handleLogin,
     user,
     error,
+    age,
   };
 
 
