@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+const db = require("./database");
 
 app.use(express.json());
 app.use(cors());
@@ -9,16 +10,6 @@ app.use(cors());
 const PORT = 3000;
 
 
-const user = {
-  username: "test",
-  password: "1234",
-  fullname: "Sergi Chitadze",
-  sex: "male",
-  birthdate: "1997-10-24",
-  activityLevel: "moderatelyActive",
-  weight: 75,
-  height: 172
-}
 
 app.get("/", (request, response) => {
   response.send("Hello from backend!");
@@ -27,10 +18,15 @@ app.get("/", (request, response) => {
 
 app.post("/auth/login", (request, response) => {
   const { username, password } = request.body; 
+
+  const getUser = db.prepare(`
+    SELECT * FROM users WHERE username = ?
+    `);
+
+    const user = getUser.get(username);
   console.log(request.body);
   if (
-    username === user.username &&
-    password === user.password
+     user && password === user.password       
   ) {
     response.json(user);
   } else {
