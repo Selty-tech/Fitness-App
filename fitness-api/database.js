@@ -1,4 +1,5 @@
 const Database = require("better-sqlite3");
+const bcrypt = require("bcrypt");
 
 const db = new Database("fitness.db");
 
@@ -30,16 +31,19 @@ const insertUser = db.prepare(`
   VALUES(?,?,?,?,?,?,?,?)
   `);
 
-  insertUser.run(
-  "test",
-  "1234",
-  "Sergi Chitadze",
-  "male",
-  "1997-10-24",
-  75,
-  175,
-  "moderatelyActive"
-);
+  const updateUser = db.prepare(`
+    UPDATE users SET password = ? WHERE username = ? 
+    `);
 
+  async function addTestUser() {
+    const hashedPassword = await bcrypt.hash("1234", 10);
+    updateUser.run(
+      hashedPassword,
+      "test"
+    );
+  };
+
+
+addTestUser();
 module.exports = db;
 

@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const bcrypt = require('bcrypt');
 
 const app = express();
 const db = require("./database");
@@ -16,7 +17,7 @@ app.get("/", (request, response) => {
 });
 
 
-app.post("/auth/login", (request, response) => {
+app.post("/auth/login", async (request, response) => {
   const { username, password } = request.body; 
 
   const getUser = db.prepare(`
@@ -24,17 +25,23 @@ app.post("/auth/login", (request, response) => {
     `);
 
     const user = getUser.get(username);
-  console.log(request.body);
-  if (
-     user && password === user.password       
-  ) {
-    response.json(user);
-  } else {
-    response.status(401).json({
-      message: "Invalid username or password",
-    });
-  }
-});
+    if (!user){
+      return response.status(401).json({
+        message: "Invalid username or password",
+      });
+    }
+    const passwordMatches = await bcrypt.compare(
+      password,
+      user.password
+    );
+    if (!passwordMatches) {
+      return response.status(401).json({
+        message:"Invalid username or password",
+      });
+    }
+    const {password: _, ...safeUser } = user;
+    response.json(safeUser);
+  });
 
 
 app.listen(PORT, () => {
