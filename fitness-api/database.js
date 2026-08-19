@@ -37,7 +37,7 @@ const insertUser = db.prepare(`
   "male",
   "1997-10-24",
   75,
-  172,
+  175,
   "moderatelyActive"
 );
 
