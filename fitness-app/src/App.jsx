@@ -5,6 +5,7 @@ import Header from './components/Header';
 import UserInfo from './components/UserInfo';
 
 import Login from './components/Login'
+import Logout from './components/Logout';
 
 
 function App() {
@@ -14,11 +15,15 @@ function App() {
   return (
     <div>
     <Header />
-    {isLoggedIn ? <UserInfo /> : <Login />}
-
+    {isLoggedIn ?(
+    <>
+      <UserInfo />
+      <Logout />
+    </>
+    ) : (
+    <Login />
+    )}
   </div>
-    
-    )
-};
+)};
 
 export default App;

@@ -33,6 +33,12 @@ const handleLogin = async (username, password) => {
   }
 };
 
+const handleLogout = () => {
+  setUser(null);
+  setIsLoggedIn(false);
+  sessionStorage.removeItem('isLoggedIn');
+};
+
   let age = null;
 
   if (user) {
@@ -56,6 +62,7 @@ const handleLogin = async (username, password) => {
   const value = {
     isLoggedIn,
     handleLogin,
+    handleLogout,
     user,
     error,
     age,
