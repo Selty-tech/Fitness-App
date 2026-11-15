@@ -1,16 +1,31 @@
-# React + Vite
+# Fitness App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React demo that displays a sample fitness profile and calculates BMI, basal metabolic rate (BMR), and estimated daily calories.
 
-Currently, two official plugins are available:
+## Demo behavior
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- The page starts with a fictional sample profile.
+- **Logout** opens the local demo login screen. The login button restores the sample profile; the fields are not checked against an account.
+- Profile and health values are calculated in the browser. The app does not send data to an API or store a real account.
 
-## React Compiler
+## Run locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requires Node.js 20.19+ or 22.12+.
 
-## Expanding the ESLint configuration
+```sh
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Vite prints the local URL. To create and preview a production build:
+
+```sh
+npm run build
+npm run preview
+```
+
+`npm run lint` runs ESLint.
+
+## Responsive layout
+
+The centered page now uses a fluid maximum width, balanced heading sizes, and wrapping content from 320px up to desktop widths. Login fields and buttons remain full-width within a readable maximum and have 48px minimum touch height. Focus indicators and the existing light/dark color treatment remain available on keyboard and touch devices.
