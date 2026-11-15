@@ -1,4 +1,3 @@
-
 import { useAuth} from './context/AuthContext';
 import './App.css'
 import Header from './components/Header';
@@ -15,6 +14,9 @@ function App() {
   return (
     <div>
     <Header />
+    <aside style={{ padding: '0.75rem 1rem', background: '#f1f5f9', borderRadius: '0.75rem', marginBottom: '1rem' }}>
+      Demo preview — this profile uses fictional sample data.
+    </aside>
     {isLoggedIn ?(
     <>
       <UserInfo />

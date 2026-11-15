@@ -1,14 +1,11 @@
 const user = {
-  username: "test",
-  password: "1234",
-  fullname: "Sergi Chitadze",
-  sex: "male",
-  birthdate: "1997-10-24",
+  username: "demo",
+  fullname: "Demo User",
+  sex: "female",
+  birthdate: "1998-05-12",
   activityLevel: "moderatelyActive",
-  weight: 75,
-  height: 172
+  weight: 62,
+  height: 165
 }
-
-
 
 export default user;

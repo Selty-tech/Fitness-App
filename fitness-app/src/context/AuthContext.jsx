@@ -1,42 +1,24 @@
-import {createContext, useContext, useState,} from 'react';
-import axios from 'axios';
+import { createContext, useContext, useState } from 'react';
+import demoUser from '../data/user';
 
 const AuthContext = createContext();
 
 
 function AuthProvider({ children }) {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(demoUser);
   const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-  const savedStatus = sessionStorage.getItem('isLoggedIn');
-  return savedStatus === 'true';
-});
-
-const handleLogin = async (username, password) => {
-  try{
-    const response = await axios.post(
-      'http://localhost:3000/auth/login',
-      {
-        username,
-        password,
-      }
-    );
-    setUser(response.data);
+const handleLogin = () => {
+    setUser(demoUser);
     setError(null);
-    sessionStorage.setItem('isLoggedIn', 'true');
     setIsLoggedIn(true);
-  } catch(err){
-    setError(err.response?.data?.message || 'Login failed');
-    setIsLoggedIn(false);
-  }
 };
 
 const handleLogout = () => {
   setUser(null);
   setIsLoggedIn(false);
-  sessionStorage.removeItem('isLoggedIn');
 };
 
   let age = null;
@@ -84,6 +66,5 @@ function useAuth() {
 }
 
 export {AuthProvider, useAuth};
-
 
 
