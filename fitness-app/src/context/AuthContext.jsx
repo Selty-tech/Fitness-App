@@ -25,10 +25,44 @@ const handleLogin = async (username, password) => {
     );
     setUser(response.data);
     setError(null);
-    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem("isLoggedIn", "true");
     setIsLoggedIn(true);
   } catch(err){
     setError(err.response?.data?.message || 'Login failed');
+    setIsLoggedIn(false);
+  }
+};
+
+const handleRegister = async (
+  username,
+  password,
+  fullname,
+  sex,
+  birthdate,
+  weight,
+  height,
+  activityLevel,
+) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:3000/auth/register',
+      {
+        username,
+        password,
+        fullname,
+        sex,
+        birthdate,
+        weight,
+        height,
+        activityLevel,
+      }
+    );
+    setUser(response.data);
+    setIsLoggedIn(true);
+    sessionStorage.setItem("isLoggedIn", "true");
+    setError(null);
+  } catch (err){
+    setError(err.response?.data?.message || 'Registration failed');
     setIsLoggedIn(false);
   }
 };
@@ -62,6 +96,7 @@ const handleLogout = () => {
   const value = {
     isLoggedIn,
     handleLogin,
+    handleRegister,
     handleLogout,
     user,
     error,
