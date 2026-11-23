@@ -6,9 +6,13 @@ const app = express();
 const db = require("./database");
 
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = process.env.FITNESS_WEB_ORIGINS?.split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+app.use(cors(allowedOrigins?.length ? { origin: allowedOrigins } : {}));
 
-const PORT = 3000;
+const port = Number(process.env.PORT || 3000);
+const host = process.env.HOST || process.env.IP || "0.0.0.0";
 
 
 
@@ -101,6 +105,6 @@ app.post("/auth/login", async (request, response) => {
   });
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, host, () => {
+  console.log(`Server is running on port ${port}`);
 });

@@ -2,6 +2,7 @@ import {createContext, useContext, useState,} from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
+const api = axios.create({ baseURL: import.meta.env.VITE_API_BASE_URL });
 
 
 function AuthProvider({ children }) {
@@ -16,8 +17,8 @@ function AuthProvider({ children }) {
 
 const handleLogin = async (username, password) => {
   try{
-    const response = await axios.post(
-      'http://localhost:3000/auth/login',
+    const response = await api.post(
+      '/auth/login',
       {
         username,
         password,
@@ -44,8 +45,8 @@ const handleRegister = async (
   activityLevel,
 ) => {
   try {
-    const response = await axios.post(
-      'http://localhost:3000/auth/register',
+    const response = await api.post(
+      '/auth/register',
       {
         username,
         password,
@@ -118,6 +119,8 @@ function useAuth() {
   return useContext(AuthContext);
 }
 
+// Keep the provider and its existing public hook in the same module.
+// eslint-disable-next-line react-refresh/only-export-components
 export {AuthProvider, useAuth};
 
 

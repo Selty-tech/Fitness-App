@@ -1,7 +1,6 @@
 const Database = require("better-sqlite3");
-const bcrypt = require("bcrypt");
 
-const db = new Database("fitness.db");
+const db = new Database(process.env.FITNESS_DB_PATH || "fitness.db");
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
@@ -17,33 +16,5 @@ db.exec(`
   )
 `);
 
-const insertUser = db.prepare(`
-  INSERT OR IGNORE INTO users(
-  username,
-  password,
-  fullname,
-  sex,
-  birthdate,
-  weight,
-  height,
-  activityLevel
-  )
-  VALUES(?,?,?,?,?,?,?,?)
-  `);
-
-  const updateUser = db.prepare(`
-    UPDATE users SET password = ? WHERE username = ? 
-    `);
-
-  async function addTestUser() {
-    const hashedPassword = await bcrypt.hash("1234", 10);
-    updateUser.run(
-      hashedPassword,
-      "test"
-    );
-  };
-
-
-addTestUser();
 module.exports = db;
 
