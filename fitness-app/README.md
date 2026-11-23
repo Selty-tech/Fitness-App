@@ -1,16 +1,42 @@
-# React + Vite
+# Fitness App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Fitness App uses React and Axios with an Express API, SQLite for account storage, and bcrypt for password hashing. The signed-in profile displays BMI, basal metabolic rate (BMR), and estimated daily calories (TDEE).
 
-Currently, two official plugins are available:
+## Using the app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Select **Create an account** to open the registration form. Submitting the form creates your account and signs you in.
+- Select **Back to Login** from the registration form to sign in with an existing account.
+- Select **Logout** to leave your profile.
 
-## React Compiler
+## Run locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Start the API from the repository root in one terminal:
 
-## Expanding the ESLint configuration
+```sh
+cd fitness-api
+npm install
+node server.js
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The API listens on port 3000 and uses `fitness.db` in its working directory. Keep database files and backups local.
+
+Start Vite from the repository root in another terminal:
+
+```sh
+cd fitness-app
+npm install
+npm run dev
+```
+
+Vite prints the local URL. To create and preview a production build:
+
+```sh
+npm run build
+npm run preview
+```
+
+`npm run lint` runs ESLint.
+
+## Responsive layout
+
+The centered page uses a fluid maximum width and wraps profile text on small screens. Login and registration fields stack vertically, size to the available width, and provide controls at least 48px tall with visible keyboard focus.

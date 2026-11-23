@@ -109,3 +109,112 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+#root {
+  width: min(1126px, 100%);
+  padding: clamp(20px, 4vw, 44px);
+  gap: 14px;
+}
+
+#root > div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  width: 100%;
+}
+
+#root > div > header {
+  width: 100%;
+  padding: clamp(24px, 6vw, 56px) 0 12px;
+}
+
+#root > div > header h1 {
+  max-width: 14ch;
+  margin: 0 auto 16px;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+#root > div > header p {
+  max-width: 38rem;
+  margin-inline: auto;
+  line-height: 1.6;
+}
+
+#root > div > form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#root > div > p,
+#root > div > form > p {
+  width: min(100%, 42rem);
+  margin-inline: auto;
+  padding: 7px 4px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+#root > div :is(button, input) {
+  width: min(100%, 22rem);
+  min-width: 0;
+  min-height: 48px;
+  margin-inline: auto;
+  padding: 10px 14px;
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 16px;
+}
+
+#root > div input {
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+#root > div button {
+  color: var(--text-h);
+  background: var(--accent-bg);
+  touch-action: manipulation;
+}
+
+#root > div button:hover {
+  border-color: var(--accent);
+}
+
+#root > div button:active {
+  background: var(--accent-bg);
+}
+
+#root > div :is(button, input):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  #root {
+    padding: 20px 16px 28px;
+  }
+
+  #root > div > header {
+    padding-top: 24px;
+  }
+
+  #root > div > header h1 {
+    max-width: 12ch;
+    font-size: clamp(32px, 9vw, 40px);
+  }
+}

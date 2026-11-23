@@ -1,0 +1,8 @@
+# Local SQLite databases, backups, and sidecar files
+/fitness-api/*.db
+/fitness-api/*.db-*
+/fitness-api/*.db.*
+/fitness-api/backups/
+
+# Legacy local profile data, unused by the app
+/fitness-app/src/data/user.js
