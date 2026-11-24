@@ -44,16 +44,18 @@ The centered page uses a fluid maximum width and wraps profile text on small scr
 
 ## Portfolio demo deployment
 
-The existing Vercel project builds the frontend from `fitness-app`. Host `fitness-api` separately as a single Node.js process with an HTTPS endpoint and a writable persistent directory. Use Node.js 24, install dependencies with `npm ci --omit=dev` in `fitness-api`, and start it with `node server.js`. Install dependencies on the host and deploy only the API source and package manifests.
+The [portfolio demo](https://fitness-app-demo-selty2.vercel.app/) uses the existing Vercel project `fitness-app-demo`, which builds the frontend from `fitness-app`. The [Express API](https://selty-fitness-api.alwaysdata.net/) runs as a single Node.js 24 process on the Alwaysdata Free plan.
 
 | Setting | Where | Value |
 | --- | --- | --- |
 | `HOST` or `IP` | API host | Host-provided bind address. Defaults to `0.0.0.0`. |
 | `PORT` | API host | Host-provided port. Defaults to `3000`. |
-| `FITNESS_DB_PATH` | API host | Absolute path to a new `fitness-demo.db` in the writable persistent directory. |
+| `FITNESS_DB_PATH` | API host | `/home/selty-fitness-api/fitness-data/fitness-demo.db` |
 | `FITNESS_WEB_ORIGINS` | API host | Comma-separated frontend origins, including `https://fitness-app-demo-selty2.vercel.app` and the exact Vercel preview origin during testing. |
-| `VITE_API_BASE_URL` | Vercel Preview and Production | The public HTTPS origin of the API. Vite reads this during the build. |
+| `VITE_API_BASE_URL` | Vercel Preview and Production | `https://selty-fitness-api.alwaysdata.net`. Vite reads this during the build. |
 
-Create the persistent directory before starting the API. SQLite creates the empty database and its original `users` table at startup. Keep the database outside the public document directory and Git checkout. Do not copy a local database or backup to the host. Use fictional profile values and a unique test password for portfolio demo accounts.
+The Alwaysdata site command uses a pinned GitHub commit. On first start for that revision, it downloads `server.js`, `database.js`, `package.json`, and `package-lock.json` into a release directory under `~/fitness-api-releases`, runs `npm ci --omit=dev`, and starts `node server.js`. For API updates, change the pinned commit in **Web → Sites → Configuration** and check the process logs. The host supplies the bind address and port.
+
+The site command creates `~/fitness-data` before the API starts. SQLite initializes an empty database with the original `users` table on first run. Later releases reuse that file from outside the release directory. Keep local databases and backups off the host. Use fictional profile values and a unique test password for portfolio demo accounts.
 
 Configure the API URL in Vercel Preview and test registration, logout, login, BMI, BMR and daily calories through the browser. Confirm that the synthetic account still works after an API restart. Set the same API origin in Vercel Production after verification. Merge to `main` to trigger the existing Git deployment, then repeat the checks at the portfolio demo URL.
